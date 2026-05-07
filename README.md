@@ -19,11 +19,27 @@ The core promise: reduce time from question or alert to justified diagnosis, whi
 
 ---
 
+## Tech Stack
+
+| Layer | Technology | Why |
+|---|---|---|
+| CLI harness | [pi](https://shittycodingagent.ai) + custom pi package | Pi is a minimal, extensible terminal coding agent. The infra-harness ships as a pi package: extensions (tools, permission broker, memory), skills (investigation recipes), and prompt templates. |
+| Desktop UI | [Tauri](https://tauri.app) + React + Tailwind | Cross-platform (macOS, Windows, Linux), ~4MB binary, uses system webview — no bundled Chromium. Beautiful and lightweight. |
+| Agent ↔ UI bridge | pi RPC mode (sidecar) | The Tauri backend spawns pi as a subprocess in `--mode rpc`. Structured JSON flows over stdin/stdout. |
+| Agent-generated UI | Custom pi extension + Tauri canvas | The agent emits structured UI descriptors via a registered tool. The Tauri frontend renders them in a dedicated dynamic panel. |
+
+See [docs/tech-stack.md](docs/tech-stack.md) for the full rationale.
+
+---
+
 ## Documentation
 
 | Document | Description |
 |---|---|
+| [Tech Stack](docs/tech-stack.md) | Technology choices and rationale |
 | [Architecture](docs/architecture.md) | System layers, components, and how they cooperate |
+| [Pi Package](docs/pi-package.md) | CLI harness: extensions, skills, prompt templates |
+| [Desktop UI](docs/desktop-ui.md) | Tauri app: fixed screens and agent-generated UI canvas |
 | [Data Model](docs/data-model.md) | Entities, relationships, and the context graph |
 | [Memory Model](docs/memory-model.md) | Session, working, durable, and preference memory |
 | [Permission Model](docs/permission-model.md) | Capability-based permissions and the broker layer |
