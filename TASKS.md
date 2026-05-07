@@ -207,7 +207,7 @@ Status markers: `[ ]` not started · `[~]` in progress · `[x]` done
 
 ## 19. Auth & Configuration
 
-- [ ] `~/.infra-harness/config.json` schema: db path, AWS region/role, k8s context, GitHub token source, observability source + key
+- [x] `~/.infra-harness/config.json` schema: db path, AWS region/role, k8s context, GitHub token source, observability source + key
 - [ ] Config loader in pi extension (read on `session_start`)
 - [ ] Config loader in Tauri Rust backend
 - [ ] `/infra-config` pi command: interactive config setup using `ctx.ui` select/input
@@ -229,7 +229,7 @@ Status markers: `[ ]` not started · `[~]` in progress · `[x]` done
 - [ ] `packages/pi-package` — publish to npm as `@infra-harness/pi-package`
 - [ ] Tauri build pipeline: macOS (universal), Windows, Linux (AppImage + deb)
 - [ ] GitHub Actions: build + test on push to main
-- [ ] `docs/install.md` — installation instructions (pi package install + desktop app download)
+- [x] `docs/install.md` — installation instructions (pi package install + desktop app download)
 - [ ] `docs/quickstart.md` — first investigation walkthrough
 
 ---

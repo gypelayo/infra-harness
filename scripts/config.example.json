@@ -1,0 +1,32 @@
+{
+  "$schema": "./config.schema.json",
+
+  "aws": {
+    "regions": ["us-east-1"],
+    "role_arn": null,
+    "resource_types": ["ec2_instances", "rds_clusters", "sqs_queues", "albs", "ecs_services", "lambda_functions"]
+  },
+
+  "kubernetes": {
+    "contexts": ["my-prod-cluster", "my-staging-cluster"],
+    "namespaces": ["default", "production", "staging"]
+  },
+
+  "github": {
+    "org": "my-org",
+    "repo_filter": null,
+    "max_repos": 100
+  },
+
+  "observability": {
+    "provider": "cloudwatch",
+    "alarm_name_prefixes": []
+  },
+
+  "relationship_hints": {
+    "repo_to_service_pattern": "^(.*)-service$",
+    "service_label_keys": ["app", "app.kubernetes.io/name"]
+  },
+
+  "env": "prod"
+}

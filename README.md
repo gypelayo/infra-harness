@@ -36,6 +36,7 @@ See [docs/tech-stack.md](docs/tech-stack.md) for the full rationale.
 
 | Document | Description |
 |---|---|
+| [Seeding](docs/seeding.md) | How to populate the knowledge base against real infrastructure |
 | [Tech Stack](docs/tech-stack.md) | Technology choices and rationale |
 | [Architecture](docs/architecture.md) | System layers, components, and how they cooperate |
 | [Pi Package](docs/pi-package.md) | CLI harness: extensions, skills, prompt templates |

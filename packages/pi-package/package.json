@@ -3,16 +3,28 @@
   "version": "0.1.0",
   "private": false,
   "description": "infra-harness pi package — extensions, skills, and prompt templates for AI-led infrastructure investigation",
-  "keywords": ["pi-package", "infrastructure", "devops", "sre"],
+  "keywords": [
+    "pi-package",
+    "infrastructure",
+    "devops",
+    "sre"
+  ],
   "license": "MIT",
   "type": "module",
   "pi": {
-    "extensions": ["./extensions/index.ts"],
-    "skills": ["./skills"],
-    "prompts": ["./prompts"]
+    "extensions": [
+      "./extensions/index.ts"
+    ],
+    "skills": [
+      "./skills"
+    ],
+    "prompts": [
+      "./prompts"
+    ]
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "seed": "node --import=tsx/esm ../../scripts/seed.ts",
     "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "dependencies": {
@@ -33,6 +45,7 @@
     "@mariozechner/pi-coding-agent": "*",
     "@types/better-sqlite3": "^7.6.0",
     "@types/node": "^20.0.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.0.0"
   }
 }
