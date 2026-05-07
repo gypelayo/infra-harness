@@ -1,0 +1,11 @@
+node_modules/
+dist/
+target/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+.DS_Store
+.env
+.env.*
+!.env.example
+packages/desktop/src-tauri/target/

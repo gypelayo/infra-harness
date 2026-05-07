@@ -1,0 +1,38 @@
+{
+  "name": "@infra-harness/pi-package",
+  "version": "0.1.0",
+  "private": false,
+  "description": "infra-harness pi package — extensions, skills, and prompt templates for AI-led infrastructure investigation",
+  "keywords": ["pi-package", "infrastructure", "devops", "sre"],
+  "license": "MIT",
+  "type": "module",
+  "pi": {
+    "extensions": ["./extensions/index.ts"],
+    "skills": ["./skills"],
+    "prompts": ["./prompts"]
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch": "^3.0.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.0.0",
+    "@aws-sdk/client-ec2": "^3.0.0",
+    "@aws-sdk/client-ecs": "^3.0.0",
+    "@aws-sdk/client-rds": "^3.0.0",
+    "@aws-sdk/client-s3": "^3.0.0",
+    "@kubernetes/client-node": "^1.0.0",
+    "@octokit/rest": "^21.0.0",
+    "@sinclair/typebox": "^0.34.0",
+    "better-sqlite3": "^12.9.0",
+    "openai": "^4.0.0",
+    "sqlite-vec": "^0.1.9"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "*",
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
