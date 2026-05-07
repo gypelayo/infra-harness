@@ -88,19 +88,19 @@ The context graph is a persistent store of entities (services, repos, clusters, 
 - `graph.ingest` — add or update entities from tool output
 - `graph.neighbors` — return the neighborhood of a given entity
 
-The graph store itself is a local embedded database (SQLite with a graph schema, or a graph-native store like Kuzu). The Tauri UI reads the same store directly for the Topology screen.
+The store is a single **SQLite file** with WAL mode. Node.js (`better-sqlite3`) writes from the pi extension; Rust (`rusqlite`) reads from the Tauri backend. Graph traversal uses recursive CTEs.
 
-See [Data Model](data-model.md).
+See [Data Model](data-model.md) and [Knowledge Base](knowledge-base.md).
 
 ### Memory Engine (pi extension)
 
 Implemented as a pi extension that:
-- Persists durable memory items via `pi.appendEntry()` (they survive session compaction)
-- Reconstructs in-memory state from session entries on `session_start`
-- Exposes a `memory.store` tool for the agent to write new durable facts
-- Injects relevant memory slices into the system prompt via `before_agent_start`
+- Persists durable memory items to **SQLite** (`memory_items` table) with confidence, freshness, entity references, and evidence links
+- Stores vector embeddings via `sqlite-vec` for semantic nearest-neighbour retrieval (known-pattern recall)
+- Reconstructs in-memory working state from the pi session file on `session_start`
+- Injects only the top-k most relevant memory items into the system prompt via `before_agent_start`
 
-See [Memory Model](memory-model.md).
+See [Memory Model](memory-model.md) and [Knowledge Base](knowledge-base.md).
 
 ### Visual Interface (Tauri)
 

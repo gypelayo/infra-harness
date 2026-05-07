@@ -40,6 +40,7 @@ See [docs/tech-stack.md](docs/tech-stack.md) for the full rationale.
 | [Architecture](docs/architecture.md) | System layers, components, and how they cooperate |
 | [Pi Package](docs/pi-package.md) | CLI harness: extensions, skills, prompt templates |
 | [Desktop UI](docs/desktop-ui.md) | Tauri app: fixed screens and agent-generated UI canvas |
+| [Knowledge Base](docs/knowledge-base.md) | SQLite schema for the context graph and memory engine |
 | [Data Model](docs/data-model.md) | Entities, relationships, and the context graph |
 | [Memory Model](docs/memory-model.md) | Session, working, durable, and preference memory |
 | [Permission Model](docs/permission-model.md) | Capability-based permissions and the broker layer |
