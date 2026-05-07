@@ -70,12 +70,12 @@ export function registerMemoryTools(pi: ExtensionAPI): void {
         }
       }
 
-      // Generate and store embedding (best-effort — won't fail if OpenAI is unavailable).
+      // Store embedding via rowid+map (vec0 v0.1.9 has no TEXT partition key).
       const embedding = await embed(params.content);
       if (embedding) {
         try {
-          db.prepare("INSERT OR REPLACE INTO memory_vectors (memory_id, embedding) VALUES (?, ?)")
-            .run(memoryId, toVecBlob(embedding));
+          const vecRowid = db.prepare("INSERT INTO memory_vectors(embedding) VALUES (?)").run(toVecBlob(embedding)).lastInsertRowid;
+          db.prepare("INSERT OR REPLACE INTO memory_vector_map(vec_rowid, memory_id) VALUES (?, ?)").run(vecRowid, memoryId);
         } catch {
           // sqlite-vec not loaded or table not ready — skip.
         }
@@ -144,9 +144,10 @@ export function registerMemoryTools(pi: ExtensionAPI): void {
           const embedding = await embed(params.query);
           if (embedding) {
             const vecRows = db.prepare(`
-              SELECT v.memory_id, vec_distance_cosine(v.embedding, ?) AS dist
+              SELECT map.memory_id, vec_distance_cosine(v.embedding, ?) AS dist
               FROM memory_vectors v
-              JOIN memory_items m ON m.id = v.memory_id
+              JOIN memory_vector_map map ON map.vec_rowid = v.rowid
+              JOIN memory_items m ON m.id = map.memory_id
               WHERE ${filter.replace(/m\./g, "m.")}
               ORDER BY dist LIMIT ?
             `).all(toVecBlob(embedding), ...bindings, limit) as Array<{ memory_id: string }>;

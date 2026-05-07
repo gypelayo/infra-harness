@@ -25,7 +25,8 @@ export function registerMemoryInjection(pi: ExtensionAPI): void {
         const rows = db.prepare(`
           SELECT m.id, m.content, m.type, m.confidence, m.env
           FROM memory_vectors v
-          JOIN memory_items m ON m.id = v.memory_id
+          JOIN memory_vector_map map ON map.vec_rowid = v.rowid
+          JOIN memory_items m ON m.id = map.memory_id
           WHERE m.freshness >= ? AND m.confidence != 'disputed'
           ORDER BY vec_distance_cosine(v.embedding, ?) ASC
           LIMIT ?

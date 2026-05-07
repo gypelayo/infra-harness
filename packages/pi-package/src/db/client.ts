@@ -68,12 +68,20 @@ export function migrate(db: Db): void {
   db.exec(schema);
 
   // Create the vec0 virtual table after sqlite-vec is loaded.
+  // v0.1.9: vec0 uses implicit integer rowid only — no TEXT PARTITION KEY.
+  // We keep a separate memory_vector_map table to link rowid → memory_id.
   try {
     db.exec(`
       CREATE VIRTUAL TABLE IF NOT EXISTS memory_vectors USING vec0(
-        memory_id   TEXT PARTITION KEY,
-        embedding   FLOAT[1536]
+        embedding FLOAT[1536]
       );
+    `);
+    db.exec(`
+      CREATE TABLE IF NOT EXISTS memory_vector_map (
+        vec_rowid INTEGER PRIMARY KEY,
+        memory_id TEXT NOT NULL REFERENCES memory_items(id) ON DELETE CASCADE
+      );
+      CREATE INDEX IF NOT EXISTS idx_vecmap_memory ON memory_vector_map(memory_id);
     `);
   } catch {
     // sqlite-vec not loaded — vector search will be unavailable.
